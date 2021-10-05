@@ -1,3 +1,4 @@
+'use strict';
 (function () {
     var getVerticalCurve = function (x, y, w, h) {
         var s = `C ${x - w * 0.1} ${y + h * 0.2} ${x - w * 0.1} ${y + h * 0.5} ${x} ${y + h * 0.4} C ${x + w * 0.1} ${y + h * 0.3} ${x + w * 0.2} ${y + h * 0.4} ${x + w * 0.2} ${y + h * 0.5} C ${x + w * 0.2} ${y + h * 0.6} ${x + w * 0.1} ${y + h * 0.7} ${x} ${y + h * 0.6} C ${x - w * 0.1} ${y + h * 0.5} ${x - w * 0.1} ${y + h * 0.8} ${x} ${y + h}`;
