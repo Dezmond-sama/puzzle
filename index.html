@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/puzzlepiecepath.js" defer></script>
     <script src="js/splitImage.js" defer></script>
+    <script src="js/drag.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +25,9 @@
     </main>
 
     <template>
-        <div class="image-piece"></div>
+        <div class="image-piece dragable">
+            <div class="image-piece__content dragable__drag-pointer"></div>
+        </div>
         <clipPath class="clipped-mask">
             <path d="">
         </clipPath>
