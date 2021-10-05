@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Puzzle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/puzzlepiecepath.js" defer></script>
+    <script src="js/splitImage.js" defer></script>
+</head>
+
+<body>
+    <h1 class="hidden">Puzzle game</h1>
+    <header>
+        <ul class="menu-list">
+            <li><button type="button" class="menu-list__button cut-button">Cut</button></li>
+            <li><button type="button" class="menu-list__button shuffle-button">Shuffle</button></li>
+        </ul>
+    </header>
+    <main class="container">
+        <div class="piece-panel"></div>
+        <div class="gamefield">
+            <div class="preview-block"></div>
+        </div>
+    </main>
+
+    <template>
+        <div class="image-piece"></div>
+        <clipPath class="clipped-mask">
+            <path d="">
+        </clipPath>
+    </template>
+    <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+        <defs class="mask-list">
+
+        </defs>
+    </svg>
+</body>
+
+</html>
