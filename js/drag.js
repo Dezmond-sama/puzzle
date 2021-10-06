@@ -6,6 +6,7 @@
         var dragItems = document.querySelectorAll(".dragable__drag-pointer");
         dragItems.forEach(function (item) {
             item.addEventListener("mousedown", function (downEvt) {
+                if (downEvt.which !== 1) return;
                 downEvt.preventDefault();
                 var coords = {
                     x: downEvt.clientX,
@@ -31,12 +32,13 @@
                     selectedItem.style.top = selectedItem.offsetTop + shift.y + 'px';
                 }
                 var onMouseUp = function (upEvt) {
+                    if (upEvt.which !== 1) return;
                     upEvt.preventDefault();
                     selectedItem.style.zIndex = Number(selectedItem.style.zIndex) - 100;
                     var elemDropEvent = new CustomEvent("elemdrop", {
                         detail: {
                             pointer: item,
-                            group: selectedItem
+                            group: item.parentNode
                         }
                     });
 
