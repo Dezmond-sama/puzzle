@@ -14,29 +14,34 @@
         return `L ${x} ${y}`;
     }
 
-    window.getPuzzlePiecePath = function (x, y, w, h, maxX, maxY, overlay) {
+    window.getPuzzlePiecePath = function (x, y, w, h, maxX, maxY, overlay, outerLeft = false, outerTop = true, outerRight = true, outerBottom = false) {
         var xpos = overlay;
         var ypos = overlay;
         var s = `M ${xpos} ${ypos}`;
+        var coef = 1;
         if (y === 0) {
             s += getLine(xpos + w, ypos);
         } else {
-            s += getHorizontalCurve(xpos, ypos, w, h);
+            coef = outerTop === true ? 1 : -1;
+            s += getHorizontalCurve(xpos, ypos, w, -h * coef);
         }
         if (x === maxX - 1) {
             s += getLine(xpos + w, ypos + h);
         } else {
-            s += getVerticalCurve(xpos + w, ypos, w, h);
+            coef = outerRight === true ? 1 : -1;
+            s += getVerticalCurve(xpos + w, ypos, w * coef, h);
         }
         if (y === maxY - 1) {
             s += getLine(xpos, ypos + h);
         } else {
-            s += getHorizontalCurve(xpos + w, ypos + h, -w, h);
+            coef = outerBottom === true ? 1 : -1;
+            s += getHorizontalCurve(xpos + w, ypos + h, -w, h * coef);
         }
         if (x === 0) {
             s += getLine(xpos, ypos);
         } else {
-            s += getVerticalCurve(xpos, ypos + h, w, -h);
+            coef = outerLeft === true ? 1 : -1;
+            s += getVerticalCurve(xpos, ypos + h, -w * coef, -h);
         }
         return s;
     }

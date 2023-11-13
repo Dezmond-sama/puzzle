@@ -5,8 +5,16 @@
     var elemMap = {};
     var threshold = 25;
 
+    var puzzlePieces = {};
     var getElemMask = function (x, y) {
-        var s = window.getPuzzlePiecePath(x, y, PuzzlePiece.elementSize, PuzzlePiece.elementSize, PuzzlePiece.prototype.maxX(), PuzzlePiece.prototype.maxY(), PuzzlePiece.overlay);
+        var left = puzzlePieces[`${x - 1}_${y}`];
+        var top = puzzlePieces[`${x}_${y - 1}`];
+        left = left ? left[0] : Math.random() > 0.5;
+        top = top ? top[1] : Math.random() > 0.5;
+        var right = Math.random() > 0.5;
+        var bottom = Math.random() > 0.5;
+        var s = window.getPuzzlePiecePath(x, y, PuzzlePiece.elementSize, PuzzlePiece.elementSize, PuzzlePiece.prototype.maxX(), PuzzlePiece.prototype.maxY(), PuzzlePiece.overlay, left, top, right, bottom);
+        puzzlePieces[`${x}_${y}`] = [!right, !bottom];
         return `path('${s}')`;
     }
     var PuzzlePiece = function (x, y) {
@@ -60,8 +68,6 @@
                 currentShiftY = Number(item.offsetTop);
             }
         });
-        console.log(`${indexX} ${indexY}`)
-        console.log(`${currentShiftX} ${currentShiftY}`)
         pieces.forEach(function (item) {
             item.style.left = (item.dataset.x - minX) * PuzzlePiece.elementSize + 'px';
             item.style.top = (item.dataset.y - minY) * PuzzlePiece.elementSize + 'px';
@@ -70,7 +76,6 @@
                 currentShiftY -= item.offsetTop;
             }
         });
-        console.log(`${currentShiftX} ${currentShiftY}`)
 
         group.style.left = currentShiftX + group.offsetLeft + 'px';
         group.style.top = currentShiftY + group.offsetTop + 'px';
