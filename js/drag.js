@@ -1,45 +1,49 @@
-'use strict';
+"use strict";
 (function () {
-    var selectedItem;
+    let selectedItem;
 
     window.drag = function () {
-        var dragItems = document.querySelectorAll(".dragable__drag-pointer");
+        const dragItems = document.querySelectorAll(".dragable__drag-pointer");
         dragItems.forEach(function (item) {
             item.addEventListener("mousedown", function (downEvt) {
                 if (downEvt.which !== 1) return;
                 downEvt.preventDefault();
-                var coords = {
+                let coords = {
                     x: downEvt.clientX,
-                    y: downEvt.clientY
-                }
+                    y: downEvt.clientY,
+                };
                 selectedItem = item.parentNode;
                 if (!selectedItem.classList.contains("dragable")) {
                     selectedItem = null;
                     return;
                 }
-                selectedItem.style.zIndex = Number(selectedItem.style.zIndex) + 100;
-                var onMouseMove = function (moveEvt) {
+                selectedItem.style.zIndex =
+                    Number(selectedItem.style.zIndex) + 100;
+                const onMouseMove = function (moveEvt) {
                     moveEvt.preventDefault();
-                    var shift = {
+                    const shift = {
                         x: moveEvt.clientX - coords.x,
-                        y: moveEvt.clientY - coords.y
-                    }
+                        y: moveEvt.clientY - coords.y,
+                    };
                     coords = {
                         x: moveEvt.clientX,
-                        y: moveEvt.clientY
-                    }
-                    selectedItem.style.left = selectedItem.offsetLeft + shift.x + 'px';
-                    selectedItem.style.top = selectedItem.offsetTop + shift.y + 'px';
-                }
-                var onMouseUp = function (upEvt) {
+                        y: moveEvt.clientY,
+                    };
+                    selectedItem.style.left =
+                        selectedItem.offsetLeft + shift.x + "px";
+                    selectedItem.style.top =
+                        selectedItem.offsetTop + shift.y + "px";
+                };
+                const onMouseUp = function (upEvt) {
                     if (upEvt.which !== 1) return;
                     upEvt.preventDefault();
-                    selectedItem.style.zIndex = Number(selectedItem.style.zIndex) - 100;
-                    var elemDropEvent = new CustomEvent("elemdrop", {
+                    selectedItem.style.zIndex =
+                        Number(selectedItem.style.zIndex) - 100;
+                    const elemDropEvent = new CustomEvent("elemdrop", {
                         detail: {
                             pointer: item,
-                            group: item.parentNode
-                        }
+                            group: item.parentNode,
+                        },
                     });
 
                     selectedItem.dispatchEvent(elemDropEvent);
@@ -47,11 +51,11 @@
                     selectedItem = null;
                     document.removeEventListener("mouseup", onMouseUp);
                     document.removeEventListener("mousemove", onMouseMove);
-                }
+                };
 
                 document.addEventListener("mouseup", onMouseUp);
                 document.addEventListener("mousemove", onMouseMove);
             });
-        })
-    }
+        });
+    };
 })();
